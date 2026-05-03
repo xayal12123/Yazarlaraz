@@ -196,16 +196,23 @@ a{color:inherit;text-decoration:none}
   <div class="modal-backdrop" data-close="login"></div>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <div class="modal-head">
-      <div class="modal-title" id="loginTitle">Kodla giriş</div>
+      <div class="modal-title" id="loginTitle">Giriş / Qeydiyyat</div>
       <button class="modal-close" data-close="login" aria-label="Bağla">×</button>
     </div>
     <form class="form" id="loginForm">
-      <div class="input">
-        <label for="loginCode">Giriş kodu</label>
-        <input id="loginCode" type="password" placeholder="Kodunuzu yazın..." autocomplete="off" />
-        <div class="hint">Kodu admin verir. Hər yazıçıya özəl kod təyin olunur.</div>
+      <div style="background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 14px; padding: 16px; margin-bottom: 18px; text-align: center;">
+        <p style="margin: 0 0 8px; font-size: 13px; color: #c9c9d6; line-height: 1.5;">Saytda kitab əlavə etmək üçün yazıçı kodunuz olmalıdır. Yeni kod almaq üçün adminə yazın:</p>
+        <div style="font-weight: 900; color: #fff; font-size: 20px; letter-spacing: 0.5px; margin-bottom: 12px;">+994 70 509 34 16</div>
+        <a href="https://wa.me/994705093416?text=Salam,%20yazarlar.az%20sayt%C4%B1nda%20yaz%C4%B1%C3%A7%C4%B1%20kimi%20qeydiyyatdan%20ke%C3%A7m%C9%99k%20v%C9%99%20kod%20almaq%20ist%C9%99yir%C9%99m." target="_blank" class="btn" style="width: 100%; justify-content: center; background: #25D366; color: #000; border: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M20.5 3.5A11 11 0 0 0 3.1 19.4L2 22l2.7-.7A11 11 0 1 0 20.5 3.5z"/></svg>
+          WhatsApp-da yaz
+        </a>
       </div>
-      <div class="modal-actions">
+      <div class="input">
+        <label for="loginCode">Artıq kodunuz varsa, bura yazın:</label>
+        <input id="loginCode" type="password" placeholder="Məsələn: YAZAR-1" autocomplete="off" />
+      </div>
+      <div class="modal-actions" style="margin-top: 14px;">
         <button type="button" class="btn" data-close="login">Ləğv</button>
         <button type="submit" class="btn btn-primary">Daxil ol</button>
       </div>
@@ -235,7 +242,7 @@ a{color:inherit;text-decoration:none}
           <input id="bookImage" type="file" accept="image/*" />
         </div>
       </div>
-      <div class="hint" style="margin-top:-6px">Əgər şəkil seçilməsə, standart (default) şəkil qoyulacaq.</div>
+      <div class="hint" style="margin-top:-6px">Şəkil seçilməsə, standart şəkil qoyulacaq.</div>
       <div class="modal-actions">
         <button type="button" class="btn" data-close="book">Ləğv</button>
         <button type="submit" class="btn btn-primary">Əlavə et</button>
@@ -252,21 +259,17 @@ a{color:inherit;text-decoration:none}
       <button class="modal-close" data-close="checkout" aria-label="Bağla">×</button>
     </div>
     <form class="form" id="checkoutForm">
-      <p style="font-size:13px; color:var(--muted); margin-top:0">Yazıçıya WhatsApp-dan yazmaq üçün məlumatlarınızı daxil edin:</p>
       <div class="input">
         <label for="buyerName">Adınız və Soyadınız</label>
         <input id="buyerName" placeholder="Məs: Əli Əliyev" required />
       </div>
       <div class="input">
-        <label for="buyerPhone">Əlaqə nömrəniz (WhatsApp)</label>
+        <label for="buyerPhone">WhatsApp nömrəniz</label>
         <input id="buyerPhone" placeholder="070 123 45 67" required />
       </div>
       <div class="modal-actions">
         <button type="button" class="btn" data-close="checkout">Ləğv</button>
-        <button type="submit" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px"><path d="M20.5 3.5A11 11 0 0 0 3.1 19.4L2 22l2.7-.7A11 11 0 1 0 20.5 3.5z"/></svg>
-          Sifariş ver
-        </button>
+        <button type="submit" class="btn btn-primary">Sifariş ver</button>
       </div>
     </form>
   </div>
@@ -276,166 +279,132 @@ a{color:inherit;text-decoration:none}
   <div class="admin-head">
     <div>
       <div class="admin-title">Admin panel</div>
-      <div class="section-sub">Yalnız sən — tək admin. Kodları burada yaradırsan.</div>
+      <div class="section-sub">Yazıçı kodlarını burada yaradırsan.</div>
     </div>
-    <button class="btn" id="exportBtn" title="Backup">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export
-    </button>
+    <button class="btn" id="exportBtn">Export</button>
   </div>
-
   <div class="admin-grid">
     <div class="card">
       <h3>Yeni yazıçı yarat</h3>
       <form class="form" id="createUserForm">
-        <div class="input">
-          <label for="userName">Ad Soyad</label>
-          <input id="userName" placeholder="Məs: Nicat Məmmədov" required />
-        </div>
+        <div class="input"><label for="userName">Ad Soyad</label><input id="userName" required /></div>
         <div class="input-row">
-          <div class="input">
-            <label for="userCode">Kod (istədiyin)</label>
-            <input id="userCode" placeholder="Məs: NICAT-1" autocapitalize="characters" required />
-          </div>
-          <div class="input">
-            <label for="userWa">WhatsApp</label>
-            <input id="userWa" placeholder="99470XXXXXXX" inputmode="numeric" required />
-          </div>
+          <div class="input"><label for="userCode">Kod</label><input id="userCode" required /></div>
+          <div class="input"><label for="userWa">WhatsApp</label><input id="userWa" placeholder="994..." required /></div>
         </div>
         <div class="modal-actions" style="justify-content:space-between">
-          <button type="button" class="btn" id="genCodeBtn" title="Təsadüfi kod">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-            Kod yarat
-          </button>
+          <button type="button" class="btn" id="genCodeBtn">Kod yarat</button>
           <button type="submit" class="btn btn-primary">Yarat</button>
         </div>
-        <div class="hint">İpucu: kodu qısa və yaddaqalan et — Məs: LEYLA-VIP, ORXAN-2</div>
       </form>
       <div id="waBox" class="wa-box hidden">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
-          <div><strong id="waNameCode"></strong> üçün WhatsApp mesajı hazırdır.</div>
-          <a id="waLink" class="btn btn-primary" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.1 19.4L2 22l2.7-.7A11 11 0 1 0 20.5 3.5z"/></svg>
-            WhatsApp-da aç
-          </a>
-        </div>
+        <a id="waLink" class="btn btn-primary" target="_blank">WhatsApp-da göndər</a>
       </div>
     </div>
-
     <div class="card">
       <h3>Yazıçılar</h3>
       <div class="user-list" id="userList"></div>
     </div>
-
-    <div class="card" style="grid-column: 1 / -1; margin-top: 10px;">
-      <h3>Sifariş Bildirişləri (Kimin tərəfindən alındı)</h3>
-      <div class="user-list" id="orderList" style="max-height: 300px;"></div>
+    <div class="card" style="grid-column:1/-1">
+      <h3>Sifarişlər</h3>
+      <div class="user-list" id="orderList"></div>
     </div>
   </div>
 </section>
 
-<nav class="tabbar" aria-label="Naviqasiya">
-  <button class="tab active" id="tabHome" title="Ana səhifə">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 22"/></svg>
-  </button>
-  <button class="tab" id="tabAdmin" title="Admin" style="display:none">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"/></svg>
-  </button>
+<nav class="tabbar">
+  <button class="tab active" id="tabHome">🏠</button>
+  <button class="tab" id="tabAdmin" style="display:none">⚙️</button>
 </nav>
 
 <div class="toast" id="toast"></div>
 
-<script>
-/* ====== CONFIG — BURANI DƏYİŞ ====== */
-const ADMIN_KOD = 'ADMIN2026'; // <-- öz admin kodunu yaz
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 
-/* ====== STATE ====== */
-let users = JSON.parse(localStorage.getItem('yz_users') || '[]');
-let books = JSON.parse(localStorage.getItem('yz_books') || '[]');
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDXJe6-A2Y6tAZUji4Z0FBrY9N0fxmiqCM",
+  authDomain: "yazarlaralsat.firebaseapp.com",
+  projectId: "yazarlaralsat",
+  storageBucket: "yazarlaralsat.firebasestorage.app",
+  messagingSenderId: "743569857568",
+  appId: "1:743569857568:web:021311e7fcbb9fadd9b045"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const ADMIN_KOD = 'ADMIN2026';
+let users = [], books = [], orders = [];
 let session = JSON.parse(localStorage.getItem('yz_session') || 'null');
-let orders = JSON.parse(localStorage.getItem('yz_orders') || '[]');
 let currentCheckoutBookId = null;
 
-/* ====== HELPERS ====== */
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
-const save = () => { 
-  localStorage.setItem('yz_users', JSON.stringify(users)); 
-  localStorage.setItem('yz_books', JSON.stringify(books)); 
-  localStorage.setItem('yz_session', JSON.stringify(session)); 
-  localStorage.setItem('yz_orders', JSON.stringify(orders)); 
-};
+const saveSession = () => localStorage.setItem('yz_session', JSON.stringify(session));
 const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
 const initials = (name='') => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const formatAZN = n => Number(n).toLocaleString('az-AZ');
 
-const getBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-};
-
-/* ====== INIT ====== */
 function init(){
-  if(books.length===0){
-    books = [
-      {id:'b1', title:'Bakı Gecələri', price:7, image:'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=800&auto=format', authorId:'demo1', authorName:'Elvin Yazar', sales:142, createdAt:Date.now()-86400000*3},
-      {id:'b2', title:'Kod və Sevgi', price:5, image:'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format', authorId:'demo2', authorName:'Aysel', sales:98, createdAt:Date.now()-86400000*2},
-      {id:'b3', title:'Dağların Sirri', price:6, image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format', authorId:'demo3', authorName:'Orxan', sales:76, createdAt:Date.now()-86400000},
-    ];
-    save();
+  if(session && session.role === 'admin' && session.code !== ADMIN_KOD) {
+    session = null; saveSession();
   }
   bindUI();
   renderAuth();
-  renderBooks();
-  updateStats();
-  showGreeting();
+  
+  db.collection("books").onSnapshot(snap => {
+    books = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderBooks(); updateStats();
+  });
+
+  db.collection("users").onSnapshot(snap => {
+    users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if(session && session.role === 'writer' && !users.find(u => u.code === session.code)) {
+      session = null; saveSession(); renderAuth(); switchTab('home');
+    }
+    if(session?.role === 'admin') renderUsers();
+  });
+
+  db.collection("orders").onSnapshot(snap => {
+    orders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if(session?.role === 'admin') renderOrders();
+  });
 }
+
 function bindUI(){
-  $('#loginBtn').onclick = openLogin;
-  $('#logoutBtn').onclick = logout;
-  $('#ctaStart').onclick = () => session ? openBook() : openLogin();
-  $('#ctaLearn').onclick = () => toast('Yazıçı kodu alır → kitab əlavə edir → satışdan 1 AZN komissiya');
+  $('#loginBtn').onclick = () => $('#loginModal').classList.add('open');
+  $('#logoutBtn').onclick = () => { session=null; saveSession(); renderAuth(); switchTab('home'); };
+  $('#ctaStart').onclick = () => session ? openBook() : $('#loginModal').classList.add('open');
   $('#addBookBtn').onclick = openBook;
-  $('#refreshBooks').onclick = () => { renderBooks(); toast('Yeniləndi'); };
   $('#tabHome').onclick = () => switchTab('home');
   $('#tabAdmin').onclick = () => switchTab('admin');
-  $$('[data-close]').forEach(b => b.onclick = () => closeModal(b.dataset.close));
-  
+  $$('[data-close]').forEach(b => b.onclick = () => {
+    const id = b.dataset.close;
+    $(`#${id}Modal`).classList.remove('open');
+  });
   $('#loginForm').onsubmit = handleLogin;
   $('#bookForm').onsubmit = handleAddBook;
   $('#createUserForm').onsubmit = handleCreateUser;
   $('#checkoutForm').onsubmit = handleCheckout;
-  
-  $('#genCodeBtn').onclick = genCode;
-  $('#exportBtn').onclick = exportData;
+  $('#genCodeBtn').onclick = () => $('#userCode').value = Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
-/* ====== AUTH ====== */
-function openLogin(){ $('#loginModal').classList.add('open'); $('#loginModal').setAttribute('aria-hidden','false'); setTimeout(()=>$('#loginCode').focus(), 50); }
-function closeModal(name){ 
-  const id = name==='login'?'loginModal' : name==='book'?'bookModal' : name==='checkout'?'checkoutModal' : null; 
-  if(!id) return; 
-  $('#'+id).classList.remove('open'); 
-  $('#'+id).setAttribute('aria-hidden','true'); 
-}
 function handleLogin(e){
   e.preventDefault();
   const code = $('#loginCode').value.trim().toUpperCase();
-  if(!code) return;
   if(code === ADMIN_KOD){
     session = {id:'admin', name:'Admin', role:'admin', code};
-    save(); renderAuth(); closeModal('login'); toast('Admin olaraq daxil oldun'); switchTab('admin'); return;
+    saveSession(); renderAuth(); $('#loginModal').classList.remove('open'); switchTab('admin');
+    return;
   }
   const user = users.find(u => u.code === code);
-  if(!user){ toast('Kod tapılmadı'); return; }
+  if(!user){ toast('Səhv kod!'); return; }
   session = {id:user.id, name:user.name, role:'writer', code:user.code, whatsapp:user.whatsapp};
-  save(); renderAuth(); closeModal('login'); toast(`Xoş gəldin, ${user.name.split(' ')[0]}`); showGreeting();
+  saveSession(); renderAuth(); $('#loginModal').classList.remove('open');
 }
-function logout(){ session=null; save(); renderAuth(); switchTab('home'); toast('Çıxış edildi'); }
+
 function renderAuth(){
   const logged = !!session;
   $('#loginBtn').classList.toggle('hidden', logged);
@@ -446,269 +415,108 @@ function renderAuth(){
     $('#userAvatar').textContent = initials(session.name);
   }
 }
-function showGreeting(){
-  const el = $('#heroGreeting');
-  if(!session) { el.textContent = ""; return; }
-  const hour = new Date().getHours();
-  let greet = "Xoş gəldin";
-  if(hour < 6) greet = "Gecən xeyrə";
-  else if(hour < 12) greet = "Sabahın xeyir";
-  else if(hour < 18) greet = "Salam";
-  else greet = "Axşamın xeyir";
-  el.textContent = `${greet}, ${session.name.split(' ')[0]}! ✨`;
-}
 
-/* ====== UI RENDERING ====== */
 function renderBooks() {
   const grid = $('#bookGrid');
-  grid.innerHTML = books.length ? '' : '<div class="empty-state"><h3>Hələ kitab yoxdur</h3><p>İlk kitabı sən əlavə et!</p></div>';
-  
+  grid.innerHTML = books.length ? '' : '<div class="empty-state">Hələ kitab yoxdur</div>';
   books.sort((a,b) => b.createdAt - a.createdAt).forEach(book => {
     const card = document.createElement('div');
     card.className = 'book-card';
-    
-    // YENİ: KİTABI SİLMƏK ÜÇÜN DÜYMƏ (Yalnız Admin və ya Kitabın sahibi görə bilər)
     const canDelete = session && (session.role === 'admin' || session.id === book.authorId);
-    const deleteHtml = canDelete ? `<button onclick="deleteBook('${book.id}')" title="Kitabı sil" style="position:absolute; top:12px; right:12px; z-index:10; width:30px; height:30px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); background:rgba(220, 53, 69, 0.8); color:#fff; font-weight:bold; cursor:pointer; display:grid; place-items:center; backdrop-filter:blur(4px);">✕</button>` : '';
-
     card.innerHTML = `
-      ${deleteHtml}
-      <div class="book-img">
-        <img src="${book.image || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format'}" alt="${book.title}" loading="lazy">
-        <div class="book-top">
-          ${book.sales > 100 ? '<span class="badge top">Bestseller</span>' : ''}
-          <span class="badge">Yeni</span>
-        </div>
-        <div class="price-tag">${formatAZN(book.price)} AZN</div>
-      </div>
+      ${canDelete ? `<button onclick="deleteBook('${book.id}')" style="position:absolute;top:10px;right:10px;z-index:5;background:red;border:0;color:#fff;border-radius:5px;cursor:pointer">X</button>` : ''}
+      <div class="book-img"><img src="${book.image || ''}"></div>
       <div class="book-body">
         <div class="book-title">${book.title}</div>
-        <div class="book-author">
-          <div class="avatar" style="width:20px; height:20px; font-size:9px">${initials(book.authorName)}</div>
-          ${book.authorName}
-        </div>
-        <div class="book-meta">
-          <div class="sales"><strong>${book.sales}</strong> satış</div>
-          <button class="buy-btn" onclick="buyBook('${book.id}')">Al</button>
-        </div>
-      </div>
-    `;
+        <div class="book-meta"><span>${book.price} AZN</span><button class="buy-btn" onclick="buyBook('${book.id}')">Al</button></div>
+      </div>`;
     grid.appendChild(card);
   });
 }
 
 function renderUsers() {
   const list = $('#userList');
-  if(!list) return;
-  list.innerHTML = users.length ? '' : '<p style="text-align:center; color:var(--muted); padding:20px 0;">Yazıçı tapılmadı.</p>';
-  
+  list.innerHTML = '';
   users.forEach(u => {
-    const item = document.createElement('div');
-    item.className = 'user-item';
-    item.innerHTML = `
-      <div class="avatar">${initials(u.name)}</div>
-      <div class="meta">
-        <div class="name">${u.name}</div>
-        <div class="code">${u.code}</div>
-      </div>
-      <div class="user-actions">
-        <button class="icon-btn" onclick="deleteUser('${u.id}')" title="Sil">×</button>
-      </div>
-    `;
-    list.appendChild(item);
+    const div = document.createElement('div');
+    div.className = 'user-item';
+    div.innerHTML = `<span>${u.name} (${u.code})</span><button onclick="deleteUser('${u.id}')">Sil</button>`;
+    list.appendChild(div);
   });
 }
 
 function renderOrders() {
   const list = $('#orderList');
-  if(!list) return;
-  list.innerHTML = orders.length ? '' : '<p style="text-align:center; color:var(--muted); padding:20px 0;">Hələ satış yoxdur.</p>';
-  
-  orders.forEach(o => {
-    const item = document.createElement('div');
-    item.className = 'user-item';
-    item.innerHTML = `
-      <div class="avatar" style="background:rgba(255,193,7,0.15); color:var(--gold); border:1px solid #ffc10740">🛒</div>
-      <div class="meta">
-        <div class="name">${o.bookTitle} <span style="color:#e7c97a; font-size:13px">(${o.price} AZN)</span></div>
-        <div class="code">Yazıçı: ${o.authorName} • Alıcı: ${o.buyerName || 'Bilinmir'} (${o.buyerPhone || '-'})</div>
-        <div style="font-size:11px; color:#8f8fa3; margin-top:3px">${o.time}</div>
-      </div>
-    `;
-    list.appendChild(item);
+  list.innerHTML = '';
+  orders.sort((a,b)=>b.createdAt-a.createdAt).forEach(o => {
+    const div = document.createElement('div');
+    div.className = 'user-item';
+    div.innerHTML = `<span>${o.bookTitle} - ${o.buyerName}</span>`;
+    list.appendChild(div);
   });
 }
 
-/* ====== ACTIONS ====== */
-function openBook() {
-  if(!session) { openLogin(); return; }
-  $('#bookModal').classList.add('open');
-  $('#bookModal').setAttribute('aria-hidden','false');
-}
-
-async function handleAddBook(e) {
+async function handleAddBook(e){
   e.preventDefault();
-  
-  const fileInput = $('#bookImage');
-  let finalImage = 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format';
-  
-  if (fileInput.files && fileInput.files[0]) {
-    const file = fileInput.files[0];
-    if (file.size > 2.5 * 1024 * 1024) {
-      toast('Şəkil 2.5MB-dan böyük olmamalıdır.');
-      return;
-    }
-    finalImage = await getBase64(file);
+  const file = $('#bookImage').files[0];
+  let img = '';
+  if(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    img = await new Promise(res => reader.onload = () => res(reader.result));
   }
-
-  const newBook = {
-    id: 'b' + Date.now(),
-    title: $('#bookName').value,
-    price: $('#bookPrice').value,
-    image: finalImage,
-    authorId: session.id,
-    authorName: session.name,
-    sales: 0,
-    createdAt: Date.now()
-  };
-  
-  books.push(newBook);
-  save();
-  renderBooks();
-  updateStats();
-  closeModal('book');
-  toast('Kitab uğurla əlavə edildi!');
-  e.target.reset();
+  await db.collection("books").add({
+    title: $('#bookName').value, price: Number($('#bookPrice').value),
+    image: img, authorId: session.id, authorName: session.name, sales: 0, createdAt: Date.now()
+  });
+  $('#bookModal').classList.remove('open'); toast('Əlavə edildi!');
 }
 
-// YENİ: KİTABI SİLMƏK FUNKSİYASI
-function deleteBook(id) {
-  if(confirm('Bu kitabı silmək istədiyinizə əminsiniz?')) {
-    books = books.filter(b => b.id !== id);
-    save();
-    renderBooks();
-    updateStats();
-    toast('Kitab silindi');
-  }
-}
+async function deleteBook(id) { if(confirm('Silinsin?')) await db.collection("books").doc(id).delete(); }
+async function deleteUser(id) { if(confirm('Yazıçı silinsin?')) await db.collection("users").doc(id).delete(); }
 
-function handleCreateUser(e) {
+async function handleCreateUser(e){
   e.preventDefault();
-  const newUser = {
-    id: 'u' + Date.now(),
-    name: $('#userName').value,
-    code: $('#userCode').value.toUpperCase(),
-    whatsapp: $('#userWa').value
-  };
-  users.push(newUser);
-  save();
-  renderUsers();
-  updateStats();
+  const u = { name: $('#userName').value, code: $('#userCode').value.toUpperCase(), whatsapp: $('#userWa').value, createdAt: Date.now() };
+  await db.collection("users").add(u);
+  toast('Yazıçı yaradıldı!');
+}
+
+function buyBook(id) { currentCheckoutBookId = id; $('#checkoutModal').classList.add('open'); }
+
+async function handleCheckout(e){
+  e.preventDefault();
+  const book = books.find(b => b.id === currentCheckoutBookId);
+  const author = users.find(u => u.id === book.authorId);
+  const buyerName = $('#buyerName').value;
+  const buyerPhone = $('#buyerPhone').value;
   
-  const msg = encodeURIComponent(`Salam ${newUser.name}, yazarlar.az saytında profiliniz yaradıldı. Giriş kodunuz: ${newUser.code}`);
-  $('#waNameCode').textContent = newUser.name;
-  $('#waLink').href = `https://wa.me/${newUser.whatsapp}?text=${msg}`;
-  $('#waBox').classList.remove('hidden');
-  toast('Yazıçı yaradıldı');
-  e.target.reset();
+  await db.collection("orders").add({
+    bookTitle: book.title, buyerName, buyerPhone, createdAt: Date.now()
+  });
+  await db.collection("books").doc(book.id).update({ sales: firebase.firestore.FieldValue.increment(1) });
+  
+  const msg = encodeURIComponent(`Salam, "${book.title}" kitabını almaq istəyirəm. Adım: ${buyerName}`);
+  window.open(`https://wa.me/${author?.whatsapp || '994705093416'}?text=${msg}`);
+  $('#checkoutModal').classList.remove('open');
 }
 
-// YENİLƏNDİ: YAZIÇINI SİLƏNDƏ KİTABLARI DA SİLİNİR
-function deleteUser(id) {
-  if(confirm('Bu yazıçını və onun BÜTÜN kitablarını silmək istədiyinizə əminsiniz?')) {
-    users = users.filter(u => u.id !== id);
-    books = books.filter(b => b.authorId !== id); // Kitablarını da silirik
-    save();
-    renderUsers();
-    renderBooks(); // Ekrandakı kitabları yeniləyirik
-    updateStats();
-    toast('Yazıçı və kitabları silindi');
-  }
-}
-
-function switchTab(tab) {
-  if(tab === 'admin' && session?.role !== 'admin') return;
+function switchTab(tab){
   $('#adminPanel').classList.toggle('hidden', tab !== 'admin');
   $('.books-section').classList.toggle('hidden', tab === 'admin');
   $('.hero').classList.toggle('hidden', tab === 'admin');
-  
   $('#tabHome').classList.toggle('active', tab === 'home');
   $('#tabAdmin').classList.toggle('active', tab === 'admin');
-  
-  if(tab === 'admin') {
-    renderUsers();
-    renderOrders();
-  }
 }
 
-function updateStats() {
+function updateStats(){
   $('#stat-books').textContent = books.length;
-  $('#stat-writers').textContent = new Set(books.map(b => b.authorId)).size;
-  $('#stat-sales').textContent = books.reduce((sum, b) => sum + b.sales, 0);
+  $('#stat-writers').textContent = new Set(books.map(b=>b.authorId)).size;
+  $('#stat-sales').textContent = books.reduce((s,b)=>s+(b.sales||0),0);
 }
 
-function genCode() {
-  const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-  $('#userCode').value = code;
-}
+function openBook() { if(!session) return; $('#bookModal').classList.add('open'); }
 
-function buyBook(id) {
-  currentCheckoutBookId = id; 
-  $('#checkoutModal').classList.add('open');
-  $('#checkoutModal').setAttribute('aria-hidden','false');
-}
-
-function handleCheckout(e) {
-  e.preventDefault();
-  
-  const book = books.find(b => b.id === currentCheckoutBookId);
-  if(!book) return;
-
-  const buyerName = $('#buyerName').value.trim();
-  const buyerPhone = $('#buyerPhone').value.trim();
-
-  const author = users.find(u => u.id === book.authorId);
-  let authorPhone = (author && author.whatsapp) ? author.whatsapp : "994700000000"; 
-  authorPhone = authorPhone.replace(/[^0-9]/g, '');
-
-  const newOrder = {
-    id: 'ord' + Date.now(),
-    bookTitle: book.title,
-    authorName: book.authorName,
-    price: book.price,
-    buyerName: buyerName,
-    buyerPhone: buyerPhone,
-    time: new Date().toLocaleString('az-AZ')
-  };
-  
-  orders.unshift(newOrder); 
-  save(); 
-
-  const msg = encodeURIComponent(`Salam. Mən yazarlar.az saytından "${book.title}" (${book.price} AZN) kitabını almaq istəyirəm.\n\nAlıcı ad: ${buyerName}\nƏlaqə: ${buyerPhone}`);
-  window.open(`https://wa.me/${authorPhone}?text=${msg}`, '_blank');
-  
-  book.sales = (book.sales || 0) + 1;
-  save();
-  renderBooks();
-  updateStats();
-  if(session?.role === 'admin') renderOrders();
-
-  closeModal('checkout');
-  toast('WhatsApp-a yönləndirilir...');
-  e.target.reset();
-}
-
-function exportData() {
-  const data = JSON.stringify({users, books, orders});
-  const blob = new Blob([data], {type: 'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `yazarlar_backup_${new Date().toLocaleDateString()}.json`;
-  a.click();
-}
-
-// Start
 init();
 </script>
 </body>
