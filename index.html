@@ -2,319 +2,158 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>yazarlar.az — Kitabını özün sat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>yazarlar.az — Bestseller Platforması</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#050507;
-  --panel:#0c0c12;
-  --gold:#FFC107;
-  --orange:#FF6F00;
-  --text:#EDEDF3;
-  --muted:#9a9aab;
-  --glass:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.1);
+  --bg:#050507; --panel:#0c0c12; --gold:#FFC107; --orange:#FF6F00;
+  --text:#EDEDF3; --muted:#9a9aab; --border:rgba(255,255,255,.1);
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  font-family:'Inter', sans-serif; background:var(--bg); color:var(--text);
+  margin:0; padding:0; overflow-x:hidden; -webkit-user-select: none; user-select: none;
 }
-a{color:inherit;text-decoration:none}
-.bg-anim{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
-.bg-anim div{position:absolute;width:70vmax;height:70vmax;border-radius:50%;filter:blur(60px);opacity:.55}
-.bg-anim div:nth-child(1){left:-20%;top:-15%;background:radial-gradient(circle at 30% 30%, #FFC107, transparent 60%);animation:f1 28s ease-in-out infinite alternate}
-.bg-anim div:nth-child(2){left:55%;top:-10%;background:radial-gradient(circle at 70% 30%, #FF6F00, transparent 60%);animation:f2 34s ease-in-out infinite alternate}
-.bg-anim div:nth-child(3){left:15%;top:55%;width:55vmax;height:55vmax;background:radial-gradient(circle at 50% 50%, #FFC107, transparent 65%);opacity:.35;animation:f3 40s ease-in-out infinite alternate}
-@keyframes f1{to{transform:translate(12%,10%) scale(1.1) rotate(10deg)}}
-@keyframes f2{to{transform:translate(-18%,8%) scale(0.95) rotate(-8deg)}}
-@keyframes f3{to{transform:translate(8%,-12%) scale(1.05) rotate(5deg)}}
-.header{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);background:linear-gradient(180deg,rgba(7,7,11,.9),rgba(7,7,11,.65));border-bottom:1px solid var(--border)}
-.header-inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{display:flex;align-items:center;gap:6px;font-weight:900;font-size:22px;letter-spacing:-.4px}
-.logo b{color:var(--gold);font-weight:900}
-.logo-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));box-shadow:0 0 18px #ffc10799;margin-left:1px}
-.header-actions{display:flex;align-items:center;gap:10px}
-.btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:600;padding:10px 16px;border-radius:12px;transition:.22s cubic-bezier(.2,.8,.2,1);background:var(--glass);color:#fff;border:1px solid var(--border);font-size:14px;display:inline-flex;align-items:center;gap:8px}
-.btn:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}
-.btn-primary{background:linear-gradient(135deg,var(--gold),var(--orange));color:#0a0a0a;border:0;box-shadow:0 8px 24px #ff6f0033}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px #ff6f0055}
-.btn-ghost{background:transparent;border-color:transparent;color:#c9c9d6}
-.btn-ghost:hover{background:rgba(255,255,255,.06)}
-.user-pill{display:flex;align-items:center;gap:10px;padding:5px 10px 5px 5px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:999px}
-.avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;font-size:13px;flex-shrink:0}
-.hero{max-width:1200px;margin:0 auto;padding:64px 20px 30px;text-align:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,193,7,.1);border:1px solid rgba(255,193,7,.25);color:#ffd761;font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:16px}
-.hero h1{font-size:clamp(40px,7vw,80px);line-height:.95;font-weight:900;letter-spacing:-1.8px;margin:0 0 16px;background:linear-gradient(180deg,#fff 0%,#fff 60%,#ffffffb0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:clamp(16px,2.1vw,20px);color:#b9b9c7;max-width:740px;margin:0 auto 28px;line-height:1.55}
-.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
-#heroGreeting{font-weight:700;color:#ffd46a;margin-bottom:8px;min-height:24px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px;margin:44px auto 0}
-.stat{position:relative;padding:20px 16px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 30px #00000040;overflow:hidden}
-.stat::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(255,193,7,.4),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.5;pointer-events:none}
-.stat-value{font-size:32px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-.5px}
-.stat-label{font-size:12px;color:#a7b6;margin-top:6px;text-transform:uppercase;letter-spacing:.9px;font-weight:600}
-.books-section{max-width:1200px;margin:0 auto;padding:26px 20px 130px}
-.section-head{display:flex;align-items:end;justify-content:space-between;margin:10px 0 18px;gap:12px}
-.section-title{font-size:26px;font-weight:800;letter-spacing:-.6px}
-.section-sub{color:var(--muted);font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-.book-card{position:relative;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025));border:1px solid var(--border);transition:.35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;isolation:isolate}
-.book-card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 120px at 50% -20%,rgba(255,193,7,.18),transparent);opacity:0;transition:.35s;z-index:0}
-.book-card:hover{transform:translateY(-8px);border-color:#ffc10766;box-shadow:0 24px 50px -16px #000,0 0 0 1px #ffc1071a inset,0 0 40px #ff6f0014}
-.book-card:hover::before{opacity:1}
-.book-img{position:relative;aspect-ratio:3/4;background:#0e0e14;overflow:hidden}
-.book-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.book-card:hover .book-img img{transform:scale(1.06)}
-.book-top{position:absolute;top:12px;left:12px;display:flex;gap:8px;z-index:2}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.3px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);color:#ffe08a}
-.badge.top{background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;border:0;box-shadow:0 6px 18px #ff6f0040}
-.price-tag{position:absolute;right:12px;bottom:12px;padding:8px 12px;border-radius:12px;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);font-weight:800;color:#fff;z-index:2}
-.book-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
-.book-title{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px}
-.book-author{display:flex;align-items:center;gap:8px;color:#c7c7d4;font-size:13px}
-.book-meta{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
-.sales{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#a8a8b8}
-.sales strong{color:#ffd36a}
-.buy-btn{padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:#fff;font-weight:600;font-size:13px;cursor:pointer;transition:.2s}
-.buy-btn:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
-.empty-state{grid-column:1/-1;text-align:center;padding:70px 10px;color:#9a9ab0;border:1px dashed var(--border);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
-.empty-state h3{margin:0 0 8px;font-size:20px;color:#d7d7e2}
-.modal{position:fixed;inset:0;display:none;place-items:center;z-index:60;padding:20px}
+img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none; }
+
+.bg-glow{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
+.bg-glow div{position:absolute; width:60vmax; height:60vmax; border-radius:50%; filter:blur(80px); opacity:0.3}
+.bg-glow div:nth-child(1){top:-10%; left:-10%; background:var(--orange)}
+.bg-glow div:nth-child(2){bottom:-10%; right:-10%; background:var(--gold)}
+
+.header{position:sticky; top:0; z-index:100; background:rgba(5,5,7,0.8); backdrop-filter:blur(15px); border-bottom:1px solid var(--border)}
+.header-inner{max-width:1200px; margin:0 auto; padding:15px 20px; display:flex; align-items:center; justify-content:space-between}
+.logo{font-weight:900; font-size:22px; color:var(--gold); letter-spacing:-1px}
+
+.btn{border:0; cursor:pointer; font-family:inherit; font-weight:700; padding:12px 20px; border-radius:14px; transition:0.2s; display:inline-flex; align-items:center; gap:8px; font-size:14px}
+.btn-primary{background:linear-gradient(135deg, var(--gold), var(--orange)); color:#000}
+.btn-outline{background:rgba(255,255,255,0.05); color:#fff; border:1px solid var(--border)}
+
+.section{max-width:1200px; margin:0 auto; padding:20px; display:none}
+.section.active{display:block}
+
+.hero{text-align:center; padding:30px 20px; max-width:800px; margin:0 auto}
+.stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:20px 0}
+.stat-card{background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:15px; border-radius:18px; text-align:center}
+.stat-num{font-size:22px; font-weight:900; color:var(--gold); display:block}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:15px}
+.book-card{background:var(--panel); border:1px solid var(--border); border-radius:20px; overflow:hidden; position:relative}
+.img-shield{position:absolute; inset:0; z-index:5; background:transparent}
+
+/* Bestseller Badge */
+.badge{position:absolute; top:10px; left:10px; background:var(--gold); color:#000; padding:4px 8px; border-radius:8px; font-size:10px; font-weight:900; z-index:6; box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+
+.book-img{width:100%; aspect-ratio:3/4; object-fit:cover; background:#111; display:block}
+.book-info{padding:12px}
+.book-title{font-weight:700; font-size:14px; margin-bottom:5px; height:36px; overflow:hidden}
+.book-price{color:var(--gold); font-weight:800; font-size:16px}
+.book-sales{font-size:11px; color:var(--muted); margin-top:4px}
+
+.modal{position:fixed; inset:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(10px); display:none; place-items:center; z-index:200; padding:20px}
 .modal.open{display:grid}
-.modal-backdrop{position:absolute;inset:0;background:rgba(3,3,6,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transition:.25s}
-.modal.open .modal-backdrop{opacity:1}
-.modal-card{position:relative;width:100%;max-width:480px;background:linear-gradient(180deg,rgba(18,18,26,.96),rgba(10,10,16,.96));border:1px solid var(--border);border-radius:26px;box-shadow:0 30px 80px #00000080, inset 0 1px 0 rgba(255,255,255,.06);padding:22px;transform:translateY(12px) scale(.98);opacity:0;transition:.3s cubic-bezier(.2,.8,.2,1)}
-.modal.open .modal-card{transform:translateY(0) scale(1);opacity:1}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.modal-title{font-size:20px;font-weight:800;letter-spacing:-.3px}
-.modal-close{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:#c9c9d6;cursor:pointer}
-.form{display:grid;gap:12px;margin-top:8px}
-.input{display:flex;flex-direction:column;gap:6px}
-.input label{font-size:12px;color:#a9a9b8;font-weight:600;letter-spacing:.3px}
-.input input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#0b0b12;color:#fff;font-size:15px;outline:none;transition:.2s}
-.input input[type="file"] { padding: 8px 14px; font-size: 13px; color: #a9a9b8; cursor:pointer }
-.input input[type="file"]::file-selector-button { background: rgba(255,255,255,.1); border: 0; padding: 6px 12px; border-radius: 6px; color: #fff; cursor: pointer; margin-right: 12px; font-weight: 600; transition: .2s; }
-.input input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,.2); }
-.input input:focus{border-color:#ffc10780;box-shadow:0 0 0 3px #ffc10722}
-.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hint{font-size:12px;color:#8f8fa3}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
-.admin{max-width:1100px;margin:0 auto;padding:34px 20px 120px}
-.admin-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}
-.admin-title{font-size:28px;font-weight:900;letter-spacing:-.6px}
-.admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:22px;padding:18px}
-.card h3{margin:0 0 10px;font-size:16px}
-.user-list{display:grid;gap:10px;max-height:420px;overflow:auto;padding-right:4px}
-.user-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--border)}
-.user-item .meta{flex:1;min-width:0}
-.user-item .name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-item .code{font-size:12px;color:#e7c97a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-.user-actions{display:flex;gap:8px}
-.icon-btn{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:#d6d6e2;cursor:pointer}
-.icon-btn:hover{background:rgba(255,255,255,.1)}
-.wa-box{margin-top:12px;padding:12px;border-radius:14px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.25);color:#b9f7d4;font-size:13px}
-.tabbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;display:flex;gap:8px;padding:8px;background:rgba(10,10,16,.7);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 30px #00000070}
-.tab{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;color:#a6a6b6;cursor:pointer;transition:.2s}
-.tab.active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;box-shadow:0 8px 20px #ff6f0033}
-.tab:hover{color:#fff}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#11121a;border:1px solid var(--border);color:#fff;padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;z-index:70;box-shadow:0 10px 30px #00000080}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media (max-width:900px){.admin-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:560px){.header-inner{padding:12px 14px}.hero{padding:48px 16px 20px}.stats{grid-template-columns:1fr 1fr;gap:10px}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.book-body{padding:12px}.section-title{font-size:22px}}
-.hidden{display:none!important}
+.modal-content{background:var(--panel); border:1px solid var(--border); width:100%; max-width:400px; padding:25px; border-radius:24px; position:relative}
+
+.form-group{margin-bottom:15px}
+.form-group input{width:100%; padding:14px; background:#16161f; border:1px solid var(--border); border-radius:12px; color:#fff; outline:none}
+
+.tabbar{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(12,12,18,0.9); backdrop-filter:blur(15px); border:1px solid var(--border); padding:8px; border-radius:22px; display:flex; gap:10px; z-index:90}
+.tab-btn{width:54px; height:54px; border-radius:16px; display:grid; place-items:center; color:var(--muted); cursor:pointer}
+.tab-btn.active{background:var(--gold); color:#000}
+
+.toast{position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--gold); color:#000; padding:12px 24px; border-radius:12px; font-weight:800; z-index:300; display:none}
+.hidden{display:none}
 </style>
 </head>
-<body>
-<div class="bg-anim" aria-hidden="true"><div></div><div></div></div>
+<body oncontextmenu="return false;">
+
+<div class="bg-glow"><div></div><div></div></div>
 
 <header class="header">
   <div class="header-inner">
-    <a class="logo" href="#"><b>yazarlar</b>.az <span class="logo-dot"></span></a>
-    <div class="header-actions">
-      <div id="userPill" class="user-pill hidden">
-        <div class="avatar" id="userAvatar">A</div>
-        <span id="userName" style="font-weight:700;font-size:13px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Admin</span>
-        <button class="btn btn-ghost" id="logoutBtn" title="Çıxış" style="padding:6px 10px">Çıx</button>
+    <div class="logo">yazarlar<span>.az</span></div>
+    <div id="authHeader"><button class="btn btn-outline" onclick="openModal('loginModal')">Giriş</button></div>
+    <div id="userHeader" class="hidden">
+      <div style="display:flex; align-items:center; gap:12px">
+        <span id="userNameDisplay" style="font-size:13px; font-weight:700"></span>
+        <button class="btn btn-outline" onclick="logout()" style="padding:8px 12px">Çıx</button>
       </div>
-      <button class="btn btn-primary" id="loginBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Giriş
-      </button>
-      <button class="btn" id="addBookBtn" title="Kitab əlavə et">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Kitab
-      </button>
     </div>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-eyebrow">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"/></svg>
-    Yeni nəsil naşir
-  </div>
-  <div id="heroGreeting"></div>
-  <h1>Kitabını özün sat</h1>
-  <p>Yazıçı qiyməti özü qoyur, kitabı birbaşa oxucuya göndərir. Platforma sadəcə 1 AZN xidmət haqqı alır.</p>
-  <div class="hero-cta">
-    <button class="btn btn-primary" id="ctaStart">Başla — pulsuz</button>
-    <button class="btn" id="ctaLearn">Necə işləyir?</button>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="stat-value" id="stat-books">0</div><div class="stat-label">Kitab</div></div>
-    <div class="stat"><div class="stat-value" id="stat-writers">0</div><div class="stat-label">Yazıçı</div></div>
-    <div class="stat"><div class="stat-value" id="stat-sales">0</div><div class="stat-label">Satış</div></div>
-  </div>
-</section>
-
-<section class="books-section">
-  <div class="section-head">
-    <div>
-      <div class="section-title">Ən çox satılanlar</div>
-      <div class="section-sub">Həftənin favoritləri</div>
+<div id="homeSection" class="section active">
+  <section class="hero">
+    <h1 id="heroTitle">Kitabını birbaşa sat.</h1>
+    <div class="stats">
+      <div class="stat-card"><span class="stat-num" id="stat-b">0</span><small>Kitab</small></div>
+      <div class="stat-card"><span class="stat-num" id="stat-w">0</span><small>Yazar</small></div>
+      <div class="stat-card"><span class="stat-num" id="stat-s">0</span><small>Satış</small></div>
     </div>
-    <button class="btn" id="refreshBooks" title="Yenilə">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.86-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-      Yenilə
-    </button>
+    <button class="btn btn-primary" onclick="handleAddBookClick()">+ Kitab Yerləşdir</button>
+  </section>
+  
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px">
+    <h2 style="font-size:18px">Bütün Kitablar</h2>
+    <select id="sortBooks" style="background:#16161f; color:#fff; border:1px solid var(--border); padding:5px; border-radius:8px" onchange="renderBooks()">
+      <option value="new">Yenilər</option>
+      <option value="top">Ən çox satılanlar</option>
+    </select>
   </div>
   <div class="grid" id="bookGrid"></div>
-</section>
+</div>
 
-<div class="modal" id="loginModal" aria-hidden="true">
-  <div class="modal-backdrop" data-close="login"></div>
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <div class="modal-head">
-      <div class="modal-title" id="loginTitle">Giriş / Qeydiyyat</div>
-      <button class="modal-close" data-close="login" aria-label="Bağla">×</button>
+<div id="adminSection" class="section">
+  <h2>Admin Panel</h2>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px">
+    <div class="stat-card" style="text-align:left">
+      <h3>Yeni Yazıçı</h3>
+      <div class="form-group"><input id="nwName" placeholder="Ad Soyad"></div>
+      <div class="form-group"><input id="nwCode" placeholder="Giriş Kodu"></div>
+      <div class="form-group"><input id="nwWa" placeholder="994705093416"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="createWriter()">Yarat</button>
     </div>
-    <form class="form" id="loginForm">
-      <div style="background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 14px; padding: 16px; margin-bottom: 18px; text-align: center;">
-        <p style="margin: 0 0 8px; font-size: 13px; color: #c9c9d6; line-height: 1.5;">Saytda kitab əlavə etmək üçün yazıçı kodunuz olmalıdır. Yeni kod almaq üçün adminə yazın:</p>
-        <div style="font-weight: 900; color: #fff; font-size: 20px; letter-spacing: 0.5px; margin-bottom: 12px;">+994 70 509 34 16</div>
-        <a href="https://wa.me/994705093416?text=Salam,%20yazarlar.az%20sayt%C4%B1nda%20yaz%C4%B1%C3%A7%C4%B1%20kimi%20qeydiyyatdan%20ke%C3%A7m%C9%99k%20v%C9%99%20kod%20almaq%20ist%C9%99yir%C9%99m." target="_blank" class="btn" style="width: 100%; justify-content: center; background: #25D366; color: #000; border: none;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M20.5 3.5A11 11 0 0 0 3.1 19.4L2 22l2.7-.7A11 11 0 1 0 20.5 3.5z"/></svg>
-          WhatsApp-da yaz
-        </a>
-      </div>
-      <div class="input">
-        <label for="loginCode">Artıq kodunuz varsa, bura yazın:</label>
-        <input id="loginCode" type="password" placeholder="Məsələn: YAZAR-1" autocomplete="off" />
-      </div>
-      <div class="modal-actions" style="margin-top: 14px;">
-        <button type="button" class="btn" data-close="login">Ləğv</button>
-        <button type="submit" class="btn btn-primary">Daxil ol</button>
-      </div>
-    </form>
+    <div class="stat-card" style="text-align:left">
+      <h3>🏆 Top Yazıçılar (Satış sayına görə)</h3>
+      <div id="topWritersList"></div>
+    </div>
   </div>
 </div>
 
-<div class="modal" id="bookModal" aria-hidden="true">
-  <div class="modal-backdrop" data-close="book"></div>
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
-    <div class="modal-head">
-      <div class="modal-title" id="bookTitle">Yeni kitab</div>
-      <button class="modal-close" data-close="book" aria-label="Bağla">×</button>
-    </div>
-    <form class="form" id="bookForm">
-      <div class="input">
-        <label for="bookName">Kitab adı</label>
-        <input id="bookName" placeholder="Məs: Bakı Gecələri" required />
-      </div>
-      <div class="input-row">
-        <div class="input">
-          <label for="bookPrice">Qiymət (AZN)</label>
-          <input id="bookPrice" type="number" min="1" step="1" placeholder="7" required />
-        </div>
-        <div class="input">
-          <label for="bookImage">Kitabın Şəkli</label>
-          <input id="bookImage" type="file" accept="image/*" />
-        </div>
-      </div>
-      <div class="hint" style="margin-top:-6px">Şəkil seçilməsə, standart şəkil qoyulacaq.</div>
-      <div class="modal-actions">
-        <button type="button" class="btn" data-close="book">Ləğv</button>
-        <button type="submit" class="btn btn-primary">Əlavə et</button>
-      </div>
-    </form>
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3>Yazıçı Girişi</h3>
+    <div class="form-group"><input type="password" id="lCode" placeholder="GİRİŞ KODU"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="login()">Daxil ol</button>
+    <button class="btn btn-outline" style="width:100%; margin-top:10px" onclick="closeModal('loginModal')">Bağla</button>
   </div>
 </div>
 
-<div class="modal" id="checkoutModal" aria-hidden="true">
-  <div class="modal-backdrop" data-close="checkout"></div>
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-    <div class="modal-head">
-      <div class="modal-title" id="checkoutTitle">Sifarişi tamamla</div>
-      <button class="modal-close" data-close="checkout" aria-label="Bağla">×</button>
-    </div>
-    <form class="form" id="checkoutForm">
-      <div class="input">
-        <label for="buyerName">Adınız və Soyadınız</label>
-        <input id="buyerName" placeholder="Məs: Əli Əliyev" required />
-      </div>
-      <div class="input">
-        <label for="buyerPhone">WhatsApp nömrəniz</label>
-        <input id="buyerPhone" placeholder="070 123 45 67" required />
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn" data-close="checkout">Ləğv</button>
-        <button type="submit" class="btn btn-primary">Sifariş ver</button>
-      </div>
-    </form>
+<div class="modal" id="bookModal">
+  <div class="modal-content">
+    <h3>Kitab Yerləşdir</h3>
+    <div class="form-group"><input id="bTitle" placeholder="Kitab adı"></div>
+    <div class="form-group"><input type="number" id="bPrice" placeholder="Qiymət (AZN)"></div>
+    <div class="form-group"><input type="file" id="bFile" accept="image/*"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="saveBook()">Paylaş</button>
   </div>
 </div>
 
-<section id="adminPanel" class="admin hidden">
-  <div class="admin-head">
-    <div>
-      <div class="admin-title">Admin panel</div>
-      <div class="section-sub">Yazıçı kodlarını burada yaradırsan.</div>
-    </div>
-    <button class="btn" id="exportBtn">Export</button>
+<div class="modal" id="buyModal">
+  <div class="modal-content">
+    <h3 id="buyLabel"></h3>
+    <div class="form-group"><input id="buyName" placeholder="Adınız"></div>
+    <div class="form-group"><input id="buyPhone" placeholder="WhatsApp nömrəniz"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="completePurchase()">Sifariş ver</button>
   </div>
-  <div class="admin-grid">
-    <div class="card">
-      <h3>Yeni yazıçı yarat</h3>
-      <form class="form" id="createUserForm">
-        <div class="input"><label for="userName">Ad Soyad</label><input id="userName" required /></div>
-        <div class="input-row">
-          <div class="input"><label for="userCode">Kod</label><input id="userCode" required /></div>
-          <div class="input"><label for="userWa">WhatsApp</label><input id="userWa" placeholder="994..." required /></div>
-        </div>
-        <div class="modal-actions" style="justify-content:space-between">
-          <button type="button" class="btn" id="genCodeBtn">Kod yarat</button>
-          <button type="submit" class="btn btn-primary">Yarat</button>
-        </div>
-      </form>
-      <div id="waBox" class="wa-box hidden">
-        <a id="waLink" class="btn btn-primary" target="_blank">WhatsApp-da göndər</a>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Yazıçılar</h3>
-      <div class="user-list" id="userList"></div>
-    </div>
-    <div class="card" style="grid-column:1/-1">
-      <h3>Sifarişlər</h3>
-      <div class="user-list" id="orderList"></div>
-    </div>
-  </div>
-</section>
+</div>
 
 <nav class="tabbar">
-  <button class="tab active" id="tabHome">🏠</button>
-  <button class="tab" id="tabAdmin" style="display:none">⚙️</button>
+  <div class="tab-btn active" id="tabHome" onclick="showTab('home')">🏠</div>
+  <div class="tab-btn hidden" id="tabAdmin" onclick="showTab('admin')">⚙️</div>
 </nav>
 
 <div class="toast" id="toast"></div>
@@ -334,190 +173,180 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const ADMIN_KEY = "ADMIN2026";
 
-const ADMIN_KOD = 'ADMIN2026';
-let users = [], books = [], orders = [];
-let session = JSON.parse(localStorage.getItem('yz_session') || 'null');
-let currentCheckoutBookId = null;
+let session = JSON.parse(localStorage.getItem('yz_session')) || null;
+let writers = [], books = [], orders = [], currentB = null;
 
-const $ = s => document.querySelector(s);
-const $$ = s => document.querySelectorAll(s);
-const saveSession = () => localStorage.setItem('yz_session', JSON.stringify(session));
-const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
-const initials = (name='') => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-const formatAZN = n => Number(n).toLocaleString('az-AZ');
+const showToast = (m) => { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(()=>t.style.display='none', 2500); };
+const openModal = (id) => document.getElementById(id).classList.add('open');
+const closeModal = (id) => document.getElementById(id).classList.remove('open');
 
-function init(){
-  if(session && session.role === 'admin' && session.code !== ADMIN_KOD) {
-    session = null; saveSession();
-  }
-  bindUI();
-  renderAuth();
-  
-  db.collection("books").onSnapshot(snap => {
-    books = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderBooks(); updateStats();
-  });
-
-  db.collection("users").onSnapshot(snap => {
-    users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    if(session && session.role === 'writer' && !users.find(u => u.code === session.code)) {
-      session = null; saveSession(); renderAuth(); switchTab('home');
-    }
-    if(session?.role === 'admin') renderUsers();
-  });
-
-  db.collection("orders").onSnapshot(snap => {
-    orders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    if(session?.role === 'admin') renderOrders();
-  });
+function showTab(t) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(t + 'Section').classList.add('active');
+  document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
 }
 
-function bindUI(){
-  $('#loginBtn').onclick = () => $('#loginModal').classList.add('open');
-  $('#logoutBtn').onclick = () => { session=null; saveSession(); renderAuth(); switchTab('home'); };
-  $('#ctaStart').onclick = () => session ? openBook() : $('#loginModal').classList.add('open');
-  $('#addBookBtn').onclick = openBook;
-  $('#tabHome').onclick = () => switchTab('home');
-  $('#tabAdmin').onclick = () => switchTab('admin');
-  $$('[data-close]').forEach(b => b.onclick = () => {
-    const id = b.dataset.close;
-    $(`#${id}Modal`).classList.remove('open');
+async function login() {
+  const code = document.getElementById('lCode').value.toUpperCase();
+  const devId = localStorage.getItem('yz_device_token') || 'dv-'+Math.random().toString(36).substr(2,9);
+  localStorage.setItem('yz_device_token', devId);
+
+  if(code === ADMIN_KEY) {
+    const lock = await db.collection("system_config").doc("admin_lock").get();
+    if(lock.exists && lock.data().deviceId !== devId) return showToast("Admin girişi bağlıdır!");
+    if(!lock.exists) await db.collection("system_config").doc("admin_lock").set({ deviceId: devId });
+    session = { name: "Admin", role: "admin", id: "admin" };
+  } else {
+    const w = writers.find(x => x.code === code);
+    if(!w) return showToast("Kod səhvdir!");
+    session = { name: w.name, role: "writer", id: w.id, wa: w.wa };
+  }
+  localStorage.setItem('yz_session', JSON.stringify(session));
+  location.reload();
+}
+
+function logout() { localStorage.removeItem('yz_session'); location.reload(); }
+
+function init() {
+  if(session) {
+    document.getElementById('authHeader').classList.add('hidden');
+    document.getElementById('userHeader').classList.remove('hidden');
+    document.getElementById('userNameDisplay').innerText = session.name;
+    if(session.role === 'admin') document.getElementById('tabAdmin').classList.remove('hidden');
+    document.getElementById('heroTitle').innerText = `Xoş gəldin, ${session.name}!`;
+  }
+
+  db.collection("books").onSnapshot(s => {
+    books = s.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderBooks();
+    updateStats();
   });
-  $('#loginForm').onsubmit = handleLogin;
-  $('#bookForm').onsubmit = handleAddBook;
-  $('#createUserForm').onsubmit = handleCreateUser;
-  $('#checkoutForm').onsubmit = handleCheckout;
-  $('#genCodeBtn').onclick = () => $('#userCode').value = Math.random().toString(36).substring(2, 8).toUpperCase();
-}
 
-function handleLogin(e){
-  e.preventDefault();
-  const code = $('#loginCode').value.trim().toUpperCase();
-  if(code === ADMIN_KOD){
-    session = {id:'admin', name:'Admin', role:'admin', code};
-    saveSession(); renderAuth(); $('#loginModal').classList.remove('open'); switchTab('admin');
-    return;
-  }
-  const user = users.find(u => u.code === code);
-  if(!user){ toast('Səhv kod!'); return; }
-  session = {id:user.id, name:user.name, role:'writer', code:user.code, whatsapp:user.whatsapp};
-  saveSession(); renderAuth(); $('#loginModal').classList.remove('open');
-}
+  db.collection("writers").onSnapshot(s => {
+    writers = s.docs.map(d => ({ id: d.id, ...d.data() }));
+    if(session?.role === 'admin') renderTopWriters();
+    updateStats();
+  });
 
-function renderAuth(){
-  const logged = !!session;
-  $('#loginBtn').classList.toggle('hidden', logged);
-  $('#userPill').classList.toggle('hidden', !logged);
-  $('#tabAdmin').style.display = (session?.role === 'admin') ? 'grid' : 'none';
-  if(logged){
-    $('#userName').textContent = session.name;
-    $('#userAvatar').textContent = initials(session.name);
-  }
+  db.collection("orders").onSnapshot(s => {
+    orders = s.docs.map(d => ({ id: d.id, ...d.data() }));
+    updateStats();
+  });
 }
 
 function renderBooks() {
-  const grid = $('#bookGrid');
-  grid.innerHTML = books.length ? '' : '<div class="empty-state">Hələ kitab yoxdur</div>';
-  books.sort((a,b) => b.createdAt - a.createdAt).forEach(book => {
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    const canDelete = session && (session.role === 'admin' || session.id === book.authorId);
-    card.innerHTML = `
-      ${canDelete ? `<button onclick="deleteBook('${book.id}')" style="position:absolute;top:10px;right:10px;z-index:5;background:red;border:0;color:#fff;border-radius:5px;cursor:pointer">X</button>` : ''}
-      <div class="book-img"><img src="${book.image || ''}"></div>
-      <div class="book-body">
-        <div class="book-title">${book.title}</div>
-        <div class="book-meta"><span>${book.price} AZN</span><button class="buy-btn" onclick="buyBook('${book.id}')">Al</button></div>
+  const g = document.getElementById('bookGrid');
+  const sortType = document.getElementById('sortBooks').value;
+  
+  let sortedBooks = [...books];
+  if(sortType === 'top') sortedBooks.sort((a,b) => (b.sales || 0) - (a.sales || 0));
+  else sortedBooks.sort((a,b) => b.createdAt - a.createdAt);
+
+  g.innerHTML = "";
+  sortedBooks.forEach(b => {
+    const isBestseller = b.sales >= 5; // 5-dən çox satılsa bestseller olur
+    const mine = session && (session.id === b.writerId || session.role === 'admin');
+    
+    g.innerHTML += `
+      <div class="book-card">
+        <div class="img-shield"></div>
+        ${isBestseller ? `<div class="badge">BESTSELLER</div>` : ''}
+        ${mine ? `<button onclick="delDoc('books','${b.id}')" style="position:absolute;right:8px;top:8px;background:red;border:0;color:#fff;border-radius:6px;z-index:10;padding:4px 8px;font-size:10px;cursor:pointer">SİL</button>` : ''}
+        <img class="book-img" src="${b.image || ''}">
+        <div class="book-info">
+          <div class="book-title">${b.title}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="book-price">${b.price} AZN</span>
+            <button class="btn btn-primary" style="padding:6px 12px;font-size:12px;z-index:11" onclick="buyBook('${b.id}')">Al</button>
+          </div>
+          <div class="book-sales">📈 ${b.sales || 0} satış</div>
+        </div>
       </div>`;
-    grid.appendChild(card);
   });
 }
 
-function renderUsers() {
-  const list = $('#userList');
-  list.innerHTML = '';
-  users.forEach(u => {
-    const div = document.createElement('div');
-    div.className = 'user-item';
-    div.innerHTML = `<span>${u.name} (${u.code})</span><button onclick="deleteUser('${u.id}')">Sil</button>`;
-    list.appendChild(div);
+function renderTopWriters() {
+  const list = document.getElementById('topWritersList');
+  // Hər yazıçının ümumi satışını hesabla
+  let stats = writers.map(w => {
+    const writerSales = books.filter(b => b.writerId === w.id).reduce((acc, curr) => acc + (curr.sales || 0), 0);
+    return { name: w.name, total: writerSales };
   });
+  
+  stats.sort((a,b) => b.total - a.total);
+  
+  list.innerHTML = stats.map((s, index) => `
+    <div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,193,7,${index === 0 ? 0.2 : 0.05}); border-radius:10px; margin-bottom:5px">
+      <span>${index + 1}. ${s.name}</span>
+      <span style="font-weight:900; color:var(--gold)">${s.total} kitab</span>
+    </div>
+  `).join('');
 }
 
-function renderOrders() {
-  const list = $('#orderList');
-  list.innerHTML = '';
-  orders.sort((a,b)=>b.createdAt-a.createdAt).forEach(o => {
-    const div = document.createElement('div');
-    div.className = 'user-item';
-    div.innerHTML = `<span>${o.bookTitle} - ${o.buyerName}</span>`;
-    list.appendChild(div);
+async function completePurchase() {
+  const n = document.getElementById('buyName').value;
+  const p = document.getElementById('buyPhone').value;
+  if(!n || !p) return showToast("Məlumatları doldurun!");
+
+  const w = writers.find(x => x.id === currentB.writerId);
+  
+  // Satış sayını Firebase-də artır
+  await db.collection("books").doc(currentB.id).update({
+    sales: firebase.firestore.FieldValue.increment(1)
   });
+
+  await db.collection("orders").add({ 
+    bookTitle: currentB.title, 
+    buyer: n, 
+    writerId: currentB.writerId,
+    createdAt: Date.now() 
+  });
+
+  window.open(`https://wa.me/${w ? w.wa : '994705093416'}?text=Salam, ${currentB.title} kitabını almaq istəyirəm.`);
+  closeModal('buyModal');
+  showToast("Sifariş yazıçıya göndərildi!");
 }
 
-async function handleAddBook(e){
-  e.preventDefault();
-  const file = $('#bookImage').files[0];
-  let img = '';
-  if(file) {
+// Digər köməkçi funksiyalar (createWriter, delDoc, updateStats və s.) əvvəlki kodla eynidir...
+async function createWriter() {
+  const n = document.getElementById('nwName').value;
+  const c = document.getElementById('nwCode').value.toUpperCase();
+  const w = document.getElementById('nwWa').value;
+  if(n && c && w) {
+    await db.collection("writers").add({ name: n, code: c, wa: w, createdAt: Date.now() });
+    showToast("Uğurlu!");
+  }
+}
+function buyBook(id) { currentB = books.find(b => b.id === id); document.getElementById('buyLabel').innerText = currentB.title; openModal('buyModal'); }
+async function delDoc(c, id) { if(confirm("Silinsin?")) await db.collection(c).doc(id).delete(); }
+function updateStats() { 
+  document.getElementById('stat-b').innerText = books.length; 
+  document.getElementById('stat-w').innerText = writers.length; 
+  document.getElementById('stat-s').innerText = orders.length; 
+}
+function handleAddBookClick() { if(!session) openModal('loginModal'); else openModal('bookModal'); }
+async function saveBook() {
+  const t = document.getElementById('bTitle').value;
+  const p = document.getElementById('bPrice').value;
+  const f = document.getElementById('bFile').files[0];
+  if(!t || !p) return showToast("Məlumatlar tam deyil!");
+  let img = "";
+  if(f) {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    img = await new Promise(res => reader.onload = () => res(reader.result));
+    img = await new Promise(res => { reader.onload = () => res(reader.result); reader.readAsDataURL(f); });
   }
   await db.collection("books").add({
-    title: $('#bookName').value, price: Number($('#bookPrice').value),
-    image: img, authorId: session.id, authorName: session.name, sales: 0, createdAt: Date.now()
+    title: t, price: p, image: img,
+    writerId: session.id, writerName: session.name,
+    createdAt: Date.now(), sales: 0
   });
-  $('#bookModal').classList.remove('open'); toast('Əlavə edildi!');
+  closeModal('bookModal');
 }
-
-async function deleteBook(id) { if(confirm('Silinsin?')) await db.collection("books").doc(id).delete(); }
-async function deleteUser(id) { if(confirm('Yazıçı silinsin?')) await db.collection("users").doc(id).delete(); }
-
-async function handleCreateUser(e){
-  e.preventDefault();
-  const u = { name: $('#userName').value, code: $('#userCode').value.toUpperCase(), whatsapp: $('#userWa').value, createdAt: Date.now() };
-  await db.collection("users").add(u);
-  toast('Yazıçı yaradıldı!');
-}
-
-function buyBook(id) { currentCheckoutBookId = id; $('#checkoutModal').classList.add('open'); }
-
-async function handleCheckout(e){
-  e.preventDefault();
-  const book = books.find(b => b.id === currentCheckoutBookId);
-  const author = users.find(u => u.id === book.authorId);
-  const buyerName = $('#buyerName').value;
-  const buyerPhone = $('#buyerPhone').value;
-  
-  await db.collection("orders").add({
-    bookTitle: book.title, buyerName, buyerPhone, createdAt: Date.now()
-  });
-  await db.collection("books").doc(book.id).update({ sales: firebase.firestore.FieldValue.increment(1) });
-  
-  const msg = encodeURIComponent(`Salam, "${book.title}" kitabını almaq istəyirəm. Adım: ${buyerName}`);
-  window.open(`https://wa.me/${author?.whatsapp || '994705093416'}?text=${msg}`);
-  $('#checkoutModal').classList.remove('open');
-}
-
-function switchTab(tab){
-  $('#adminPanel').classList.toggle('hidden', tab !== 'admin');
-  $('.books-section').classList.toggle('hidden', tab === 'admin');
-  $('.hero').classList.toggle('hidden', tab === 'admin');
-  $('#tabHome').classList.toggle('active', tab === 'home');
-  $('#tabAdmin').classList.toggle('active', tab === 'admin');
-}
-
-function updateStats(){
-  $('#stat-books').textContent = books.length;
-  $('#stat-writers').textContent = new Set(books.map(b=>b.authorId)).size;
-  $('#stat-sales').textContent = books.reduce((s,b)=>s+(b.sales||0),0);
-}
-
-function openBook() { if(!session) return; $('#bookModal').classList.add('open'); }
-
 init();
 </script>
 </body>
 </html>
+
