@@ -3,82 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>yazarlar.az — Bestseller Platforması</title>
+<title>yazarlar.az — Rəsmi Müəllif Platforması</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg:#050507; --panel:#0c0c12; --gold:#FFC107; --orange:#FF6F00;
   --text:#EDEDF3; --muted:#9a9aab; --border:rgba(255,255,255,.1);
 }
+
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+
 body{
   font-family:'Inter', sans-serif; background:var(--bg); color:var(--text);
-  margin:0; padding:0; overflow-x:hidden; -webkit-user-select: none; user-select: none;
+  margin:0; padding:0; overflow-x:hidden;
+  /* Saytda mətnin seçilməsini və kopyalanmasını bloklayır */
+  -webkit-user-select: none; user-select: none;
 }
-img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none; }
 
+/* --- ŞƏKİL QORUMASI CSS --- */
+.book-img-container {
+  width: 100%;
+  aspect-ratio: 3/4;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #111;
+  /* Brauzerin şəkli obyek kimi tanımasını çətinləşdirir */
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.img-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(0,0,0,0); /* Tam şəffaf təbəqə */
+  cursor: default;
+}
+
+/* Dizayn Elementləri */
 .bg-glow{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
-.bg-glow div{position:absolute; width:60vmax; height:60vmax; border-radius:50%; filter:blur(80px); opacity:0.3}
+.bg-glow div{position:absolute; width:60vmax; height:60vmax; border-radius:50%; filter:blur(100px); opacity:0.3}
 .bg-glow div:nth-child(1){top:-10%; left:-10%; background:var(--orange)}
 .bg-glow div:nth-child(2){bottom:-10%; right:-10%; background:var(--gold)}
 
-.header{position:sticky; top:0; z-index:100; background:rgba(5,5,7,0.8); backdrop-filter:blur(15px); border-bottom:1px solid var(--border)}
+.header{position:sticky; top:0; z-index:100; background:rgba(5,5,7,0.8); backdrop-filter:blur(20px); border-bottom:1px solid var(--border)}
 .header-inner{max-width:1200px; margin:0 auto; padding:15px 20px; display:flex; align-items:center; justify-content:space-between}
-.logo{font-weight:900; font-size:22px; color:var(--gold); letter-spacing:-1px}
+.logo{font-weight:900; font-size:24px; color:var(--gold); letter-spacing:-1px}
+.logo span{color:#fff}
 
 .btn{border:0; cursor:pointer; font-family:inherit; font-weight:700; padding:12px 20px; border-radius:14px; transition:0.2s; display:inline-flex; align-items:center; gap:8px; font-size:14px}
 .btn-primary{background:linear-gradient(135deg, var(--gold), var(--orange)); color:#000}
 .btn-outline{background:rgba(255,255,255,0.05); color:#fff; border:1px solid var(--border)}
+.btn:active{transform:scale(0.96)}
 
 .section{max-width:1200px; margin:0 auto; padding:20px; display:none}
 .section.active{display:block}
 
-.hero{text-align:center; padding:30px 20px; max-width:800px; margin:0 auto}
-.stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:20px 0}
-.stat-card{background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:15px; border-radius:18px; text-align:center}
-.stat-num{font-size:22px; font-weight:900; color:var(--gold); display:block}
+.hero{text-align:center; padding:40px 20px; max-width:800px; margin:0 auto}
+.hero h1{font-size:clamp(32px, 8vw, 60px); font-weight:900; margin:0 0 15px; letter-spacing:-1.5px}
 
-.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:15px}
-.book-card{background:var(--panel); border:1px solid var(--border); border-radius:20px; overflow:hidden; position:relative}
-.img-shield{position:absolute; inset:0; z-index:5; background:transparent}
+.stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin:30px 0}
+.stat-card{background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:15px; border-radius:20px; text-align:center}
+.stat-num{font-size:24px; font-weight:900; color:var(--gold); display:block}
 
-/* Bestseller Badge */
-.badge{position:absolute; top:10px; left:10px; background:var(--gold); color:#000; padding:4px 8px; border-radius:8px; font-size:10px; font-weight:900; z-index:6; box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+/* Kitab Kartları */
+.grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(165px, 1fr)); gap:20px}
+.book-card{background:var(--panel); border:1px solid var(--border); border-radius:24px; overflow:hidden; position:relative; transition:0.3s}
+.book-card:hover{border-color:var(--gold)}
 
-.book-img{width:100%; aspect-ratio:3/4; object-fit:cover; background:#111; display:block}
-.book-info{padding:12px}
-.book-title{font-weight:700; font-size:14px; margin-bottom:5px; height:36px; overflow:hidden}
-.book-price{color:var(--gold); font-weight:800; font-size:16px}
-.book-sales{font-size:11px; color:var(--muted); margin-top:4px}
+.badge{position:absolute; top:12px; left:12px; background:var(--gold); color:#000; padding:5px 10px; border-radius:10px; font-size:11px; font-weight:900; z-index:10; box-shadow:0 5px 15px rgba(0,0,0,0.4)}
 
-.modal{position:fixed; inset:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(10px); display:none; place-items:center; z-index:200; padding:20px}
+.book-info{padding:15px}
+.book-title{font-weight:800; font-size:15px; margin-bottom:8px; height:40px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical}
+.book-price{color:var(--gold); font-weight:900; font-size:18px}
+.book-meta{font-size:11px; color:var(--muted); margin-top:8px; display:flex; justify-content:space-between}
+
+/* Modallar */
+.modal{position:fixed; inset:0; background:rgba(0,0,0,0.95); backdrop-filter:blur(12px); display:none; place-items:center; z-index:200; padding:20px}
 .modal.open{display:grid}
-.modal-content{background:var(--panel); border:1px solid var(--border); width:100%; max-width:400px; padding:25px; border-radius:24px; position:relative}
+.modal-content{background:var(--panel); border:1px solid var(--border); width:100%; max-width:400px; padding:30px; border-radius:28px; position:relative}
 
-.form-group{margin-bottom:15px}
-.form-group input{width:100%; padding:14px; background:#16161f; border:1px solid var(--border); border-radius:12px; color:#fff; outline:none}
+.form-group{margin-bottom:18px}
+.form-group label{display:block; font-size:12px; margin-bottom:6px; color:var(--muted); font-weight:600}
+.form-group input{width:100%; padding:14px; background:#16161f; border:1px solid var(--border); border-radius:12px; color:#fff; outline:none; transition:0.2s}
+.form-group input:focus{border-color:var(--gold)}
 
-.tabbar{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(12,12,18,0.9); backdrop-filter:blur(15px); border:1px solid var(--border); padding:8px; border-radius:22px; display:flex; gap:10px; z-index:90}
-.tab-btn{width:54px; height:54px; border-radius:16px; display:grid; place-items:center; color:var(--muted); cursor:pointer}
+/* Alt Menyu */
+.tabbar{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(12,12,18,0.9); backdrop-filter:blur(15px); border:1px solid var(--border); padding:8px; border-radius:22px; display:flex; gap:10px; z-index:90; box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+.tab-btn{width:56px; height:56px; border-radius:18px; display:grid; place-items:center; color:var(--muted); cursor:pointer; font-size:20px}
 .tab-btn.active{background:var(--gold); color:#000}
 
-.toast{position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--gold); color:#000; padding:12px 24px; border-radius:12px; font-weight:800; z-index:300; display:none}
+.toast{position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:var(--gold); color:#000; padding:14px 28px; border-radius:15px; font-weight:900; z-index:300; display:none; box-shadow:0 10px 30px rgba(255,193,7,0.3)}
 .hidden{display:none}
+
+@media (max-width:480px){
+  .grid{grid-template-columns:repeat(2, 1fr); gap:12px}
+  .hero h1{font-size:36px}
+}
 </style>
 </head>
-<body oncontextmenu="return false;">
-
-<div class="bg-glow"><div></div><div></div></div>
+<body oncontextmenu="return false;"> <div class="bg-glow"><div></div><div></div></div>
 
 <header class="header">
   <div class="header-inner">
     <div class="logo">yazarlar<span>.az</span></div>
-    <div id="authHeader"><button class="btn btn-outline" onclick="openModal('loginModal')">Giriş</button></div>
-    <div id="userHeader" class="hidden">
+    <div id="headerAuth">
+      <button class="btn btn-outline" onclick="openModal('loginModal')">Giriş</button>
+    </div>
+    <div id="headerUser" class="hidden">
       <div style="display:flex; align-items:center; gap:12px">
-        <span id="userNameDisplay" style="font-size:13px; font-weight:700"></span>
+        <span id="userNameShow" style="font-size:14px; font-weight:800; color:var(--gold)"></span>
         <button class="btn btn-outline" onclick="logout()" style="padding:8px 12px">Çıx</button>
       </div>
     </div>
@@ -87,38 +126,36 @@ img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none
 
 <div id="homeSection" class="section active">
   <section class="hero">
-    <h1 id="heroTitle">Kitabını birbaşa sat.</h1>
+    <h1 id="welcomeText">Kitabını birbaşa sat.</h1>
     <div class="stats">
-      <div class="stat-card"><span class="stat-num" id="stat-b">0</span><small>Kitab</small></div>
-      <div class="stat-card"><span class="stat-num" id="stat-w">0</span><small>Yazar</small></div>
-      <div class="stat-card"><span class="stat-num" id="stat-s">0</span><small>Satış</small></div>
+      <div class="stat-card"><span class="stat-num" id="s-books">0</span><small>Kitab</small></div>
+      <div class="stat-card"><span class="stat-num" id="s-writers">0</span><small>Yazar</small></div>
+      <div class="stat-card" style="border-color:var(--gold)"><span class="stat-num" id="s-sales">0</span><small>Satış</small></div>
     </div>
-    <button class="btn btn-primary" onclick="handleAddBookClick()">+ Kitab Yerləşdir</button>
+    <div style="display:flex; gap:10px; justify-content:center">
+        <button class="btn btn-primary" onclick="handleBookAdd()">+ Kitab Yerləşdir</button>
+        <select id="sortOrder" onchange="renderBooks()" style="background:var(--panel); color:#fff; border:1px solid var(--border); border-radius:12px; padding:0 10px">
+            <option value="new">Yeni</option>
+            <option value="top">Top Satış</option>
+        </select>
+    </div>
   </section>
-  
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px">
-    <h2 style="font-size:18px">Bütün Kitablar</h2>
-    <select id="sortBooks" style="background:#16161f; color:#fff; border:1px solid var(--border); padding:5px; border-radius:8px" onchange="renderBooks()">
-      <option value="new">Yenilər</option>
-      <option value="top">Ən çox satılanlar</option>
-    </select>
-  </div>
   <div class="grid" id="bookGrid"></div>
 </div>
 
 <div id="adminSection" class="section">
-  <h2>Admin Panel</h2>
-  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px">
+  <h2 style="margin-bottom:25px">Admin İdarəetmə Paneli</h2>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:25px">
     <div class="stat-card" style="text-align:left">
-      <h3>Yeni Yazıçı</h3>
-      <div class="form-group"><input id="nwName" placeholder="Ad Soyad"></div>
-      <div class="form-group"><input id="nwCode" placeholder="Giriş Kodu"></div>
-      <div class="form-group"><input id="nwWa" placeholder="994705093416"></div>
-      <button class="btn btn-primary" style="width:100%" onclick="createWriter()">Yarat</button>
+      <h3 style="color:var(--gold)">Yeni Yazıçı Yarad</h3>
+      <div class="form-group"><label>Ad Soyad</label><input id="admWName" placeholder="Məs: Əli Əliyev"></div>
+      <div class="form-group"><label>Giriş Kodu (Unikal)</label><input id="admWCode" placeholder="Məs: ALI77"></div>
+      <div class="form-group"><label>WhatsApp (994...)</label><input id="admWWa" placeholder="994701234567"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="adminCreateWriter()">Təsdiqlə və Yarad</button>
     </div>
     <div class="stat-card" style="text-align:left">
-      <h3>🏆 Top Yazıçılar (Satış sayına görə)</h3>
-      <div id="topWritersList"></div>
+      <h3 style="color:var(--gold)">🏆 Reytinq (Top Satış)</h3>
+      <div id="topWritersRank"></div>
     </div>
   </div>
 </div>
@@ -126,34 +163,34 @@ img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none
 <div class="modal" id="loginModal">
   <div class="modal-content">
     <h3>Yazıçı Girişi</h3>
-    <div class="form-group"><input type="password" id="lCode" placeholder="GİRİŞ KODU"></div>
-    <button class="btn btn-primary" style="width:100%" onclick="login()">Daxil ol</button>
+    <div class="form-group"><input type="password" id="loginInp" placeholder="KODUNUZ"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Daxil ol</button>
     <button class="btn btn-outline" style="width:100%; margin-top:10px" onclick="closeModal('loginModal')">Bağla</button>
   </div>
 </div>
 
 <div class="modal" id="bookModal">
   <div class="modal-content">
-    <h3>Kitab Yerləşdir</h3>
-    <div class="form-group"><input id="bTitle" placeholder="Kitab adı"></div>
-    <div class="form-group"><input type="number" id="bPrice" placeholder="Qiymət (AZN)"></div>
-    <div class="form-group"><input type="file" id="bFile" accept="image/*"></div>
-    <button class="btn btn-primary" style="width:100%" onclick="saveBook()">Paylaş</button>
+    <h3>Kitab Əlavə Et</h3>
+    <div class="form-group"><label>Kitabın Adı</label><input id="bookT"></div>
+    <div class="form-group"><label>Qiymət (AZN)</label><input type="number" id="bookP"></div>
+    <div class="form-group"><label>Qapaq Şəkli</label><input type="file" id="bookF" accept="image/*"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="handleSaveBook()">Paylaş</button>
   </div>
 </div>
 
 <div class="modal" id="buyModal">
   <div class="modal-content">
-    <h3 id="buyLabel"></h3>
-    <div class="form-group"><input id="buyName" placeholder="Adınız"></div>
-    <div class="form-group"><input id="buyPhone" placeholder="WhatsApp nömrəniz"></div>
-    <button class="btn btn-primary" style="width:100%" onclick="completePurchase()">Sifariş ver</button>
+    <h3 id="buyT">Sifariş</h3>
+    <div class="form-group"><label>Adınız</label><input id="buyN"></div>
+    <div class="form-group"><label>WhatsApp Nömrəniz</label><input id="buyP"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="handleFinalBuy()">WhatsApp-da Sifariş Ver</button>
   </div>
 </div>
 
 <nav class="tabbar">
-  <div class="tab-btn active" id="tabHome" onclick="showTab('home')">🏠</div>
-  <div class="tab-btn hidden" id="tabAdmin" onclick="showTab('admin')">⚙️</div>
+  <div class="tab-btn active" id="tabHome" onclick="changeSection('home')">🏠</div>
+  <div class="tab-btn hidden" id="tabAdmin" onclick="changeSection('admin')">⚙️</div>
 </nav>
 
 <div class="toast" id="toast"></div>
@@ -162,6 +199,7 @@ img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 
 <script>
+// FIREBASE AYARLARI
 const firebaseConfig = {
   apiKey: "AIzaSyDXJe6-A2Y6tAZUji4Z0FBrY9N0fxmiqCM",
   authDomain: "yazarlaralsat.firebaseapp.com",
@@ -173,180 +211,242 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const ADMIN_KEY = "ADMIN2026";
+const ADMIN_PASS = "ADMIN2026";
 
-let session = JSON.parse(localStorage.getItem('yz_session')) || null;
-let writers = [], books = [], orders = [], currentB = null;
+// LOCAL STATE
+let session = JSON.parse(localStorage.getItem('yz_user')) || null;
+let currentBook = null;
+let allBooks = [], allWriters = [], allOrders = [];
 
+// CIHAZ KILIDI (Device Fingerprint)
+const getDeviceID = () => {
+    let id = localStorage.getItem('yz_device_id');
+    if(!id) {
+        id = 'device-' + Math.random().toString(36).substr(2, 12);
+        localStorage.setItem('yz_device_id', id);
+    }
+    return id;
+};
+
+// UI KÖMƏKÇİ FUNKSİYALARI
 const showToast = (m) => { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(()=>t.style.display='none', 2500); };
 const openModal = (id) => document.getElementById(id).classList.add('open');
 const closeModal = (id) => document.getElementById(id).classList.remove('open');
 
-function showTab(t) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(t + 'Section').classList.add('active');
-  document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
+function changeSection(s) {
+    document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    document.getElementById(s + 'Section').classList.add('active');
+    document.getElementById('tab' + s.charAt(0).toUpperCase() + s.slice(1)).classList.add('active');
 }
 
-async function login() {
-  const code = document.getElementById('lCode').value.toUpperCase();
-  const devId = localStorage.getItem('yz_device_token') || 'dv-'+Math.random().toString(36).substr(2,9);
-  localStorage.setItem('yz_device_token', devId);
+// GİRİŞ / ÇIXIŞ
+async function handleLogin() {
+    const code = document.getElementById('loginInp').value.toUpperCase();
+    const myId = getDeviceID();
 
-  if(code === ADMIN_KEY) {
-    const lock = await db.collection("system_config").doc("admin_lock").get();
-    if(lock.exists && lock.data().deviceId !== devId) return showToast("Admin girişi bağlıdır!");
-    if(!lock.exists) await db.collection("system_config").doc("admin_lock").set({ deviceId: devId });
-    session = { name: "Admin", role: "admin", id: "admin" };
-  } else {
-    const w = writers.find(x => x.code === code);
-    if(!w) return showToast("Kod səhvdir!");
-    session = { name: w.name, role: "writer", id: w.id, wa: w.wa };
-  }
-  localStorage.setItem('yz_session', JSON.stringify(session));
-  location.reload();
+    if(code === ADMIN_PASS) {
+        // ADMIN CIHAZ KILIDI YOXLA
+        const lock = await db.collection("system_config").doc("admin_lock").get();
+        if(lock.exists && lock.data().deviceId !== myId) {
+            showToast("Giriş Rədd Edildi! Admin cihazı kilidlidir.");
+            return;
+        } else if (!lock.exists) {
+            await db.collection("system_config").doc("admin_lock").set({ deviceId: myId });
+            showToast("Bu cihaz rəsmi Admin cihazı kimi qeyd olundu!");
+        }
+        session = { name: "Admin", role: "admin", id: "admin" };
+    } else {
+        const w = allWriters.find(x => x.code === code);
+        if(!w) return showToast("Yanlış kod!");
+        session = { name: w.name, role: "writer", id: w.id, wa: w.wa };
+    }
+
+    localStorage.setItem('yz_user', JSON.stringify(session));
+    location.reload();
 }
 
-function logout() { localStorage.removeItem('yz_session'); location.reload(); }
+function logout() { localStorage.removeItem('yz_user'); location.reload(); }
 
+// REAL-TIME DATA BASLATMA
 function init() {
-  if(session) {
-    document.getElementById('authHeader').classList.add('hidden');
-    document.getElementById('userHeader').classList.remove('hidden');
-    document.getElementById('userNameDisplay').innerText = session.name;
-    if(session.role === 'admin') document.getElementById('tabAdmin').classList.remove('hidden');
-    document.getElementById('heroTitle').innerText = `Xoş gəldin, ${session.name}!`;
-  }
+    if(session) {
+        document.getElementById('headerAuth').classList.add('hidden');
+        document.getElementById('headerUser').classList.remove('hidden');
+        document.getElementById('userNameShow').innerText = session.name;
+        document.getElementById('welcomeText').innerText = `Xoş gəldin, ${session.name}!`;
+        if(session.role === 'admin') document.getElementById('tabAdmin').classList.remove('hidden');
+    }
 
-  db.collection("books").onSnapshot(s => {
-    books = s.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderBooks();
-    updateStats();
-  });
+    // Kitabları Dinlə
+    db.collection("books").onSnapshot(s => {
+        allBooks = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderBooks();
+        updateStats();
+    });
 
-  db.collection("writers").onSnapshot(s => {
-    writers = s.docs.map(d => ({ id: d.id, ...d.data() }));
-    if(session?.role === 'admin') renderTopWriters();
-    updateStats();
-  });
+    // Yazıçıları Dinlə
+    db.collection("writers").onSnapshot(s => {
+        allWriters = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        if(session?.role === 'admin') renderAdminStats();
+        updateStats();
+    });
 
-  db.collection("orders").onSnapshot(s => {
-    orders = s.docs.map(d => ({ id: d.id, ...d.data() }));
-    updateStats();
-  });
+    // Sifarişləri Dinlə
+    db.collection("orders").onSnapshot(s => {
+        allOrders = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        updateStats();
+    });
 }
 
+// KİTABLARIN EKRANA VERİLMƏSİ (Şəkil Qoruması ilə)
 function renderBooks() {
-  const g = document.getElementById('bookGrid');
-  const sortType = document.getElementById('sortBooks').value;
-  
-  let sortedBooks = [...books];
-  if(sortType === 'top') sortedBooks.sort((a,b) => (b.sales || 0) - (a.sales || 0));
-  else sortedBooks.sort((a,b) => b.createdAt - a.createdAt);
-
-  g.innerHTML = "";
-  sortedBooks.forEach(b => {
-    const isBestseller = b.sales >= 5; // 5-dən çox satılsa bestseller olur
-    const mine = session && (session.id === b.writerId || session.role === 'admin');
+    const grid = document.getElementById('bookGrid');
+    const order = document.getElementById('sortOrder').value;
     
-    g.innerHTML += `
-      <div class="book-card">
-        <div class="img-shield"></div>
-        ${isBestseller ? `<div class="badge">BESTSELLER</div>` : ''}
-        ${mine ? `<button onclick="delDoc('books','${b.id}')" style="position:absolute;right:8px;top:8px;background:red;border:0;color:#fff;border-radius:6px;z-index:10;padding:4px 8px;font-size:10px;cursor:pointer">SİL</button>` : ''}
-        <img class="book-img" src="${b.image || ''}">
-        <div class="book-info">
-          <div class="book-title">${b.title}</div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <span class="book-price">${b.price} AZN</span>
-            <button class="btn btn-primary" style="padding:6px 12px;font-size:12px;z-index:11" onclick="buyBook('${b.id}')">Al</button>
-          </div>
-          <div class="book-sales">📈 ${b.sales || 0} satış</div>
+    let sorted = [...allBooks];
+    if(order === 'top') sorted.sort((a,b) => (b.sales || 0) - (a.sales || 0));
+    else sorted.sort((a,b) => b.createdAt - a.createdAt);
+
+    grid.innerHTML = "";
+    sorted.forEach(b => {
+        const isBestseller = (b.sales || 0) >= 5;
+        const canDelete = session && (session.role === 'admin' || session.id === b.writerId);
+
+        grid.innerHTML += `
+            <div class="book-card">
+                <div class="img-shield"></div> ${isBestseller ? `<div class="badge">BESTSELLER</div>` : ''}
+                
+                ${canDelete ? `<button onclick="handleDelete('books','${b.id}')" style="position:absolute; right:8px; top:8px; background:rgba(255,0,0,0.8); border:0; color:#fff; border-radius:8px; z-index:15; padding:6px 10px; cursor:pointer; font-weight:bold; font-size:10px">SİL</button>` : ''}
+                
+                <div class="book-img-container" style="background-image: url('${b.image || ''}')"></div>
+                
+                <div class="book-info">
+                    <div class="book-title">${b.title}</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; position:relative; z-index:20">
+                        <span class="book-price">${b.price} AZN</span>
+                        <button class="btn btn-primary" style="padding:6px 12px; font-size:12px" onclick="handleBuyClick('${b.id}')">Al</button>
+                    </div>
+                    <div class="book-meta">
+                        <span>👤 ${b.writerName}</span>
+                        <span style="color:var(--gold)">📈 ${b.sales || 0} satış</span>
+                    </div>
+                </div>
+            </div>`;
+    });
+}
+
+// ADMIN PANEL REYTING
+function renderAdminStats() {
+    const rank = document.getElementById('topWritersRank');
+    let data = allWriters.map(w => {
+        const total = allBooks.filter(b => b.writerId === w.id).reduce((s, c) => s + (c.sales || 0), 0);
+        return { name: w.name, total };
+    });
+    data.sort((a,b) => b.total - a.total);
+
+    rank.innerHTML = data.map((w, i) => `
+        <div style="display:flex; justify-content:space-between; padding:12px; background:rgba(255,193,7,${i===0?0.2:0.05}); border-radius:12px; margin-bottom:8px; border:1px solid ${i===0?'var(--gold)':'transparent'}">
+            <span>${i+1}. ${w.name}</span>
+            <span style="font-weight:900; color:var(--gold)">${w.total} Satış</span>
         </div>
-      </div>`;
-  });
+    `).join('');
 }
 
-function renderTopWriters() {
-  const list = document.getElementById('topWritersList');
-  // Hər yazıçının ümumi satışını hesabla
-  let stats = writers.map(w => {
-    const writerSales = books.filter(b => b.writerId === w.id).reduce((acc, curr) => acc + (curr.sales || 0), 0);
-    return { name: w.name, total: writerSales };
-  });
-  
-  stats.sort((a,b) => b.total - a.total);
-  
-  list.innerHTML = stats.map((s, index) => `
-    <div style="display:flex; justify-content:space-between; padding:10px; background:rgba(255,193,7,${index === 0 ? 0.2 : 0.05}); border-radius:10px; margin-bottom:5px">
-      <span>${index + 1}. ${s.name}</span>
-      <span style="font-weight:900; color:var(--gold)">${s.total} kitab</span>
-    </div>
-  `).join('');
+// KİTAB ƏLAVƏ ETMƏ
+function handleBookAdd() {
+    if(!session) openModal('loginModal');
+    else openModal('bookModal');
 }
 
-async function completePurchase() {
-  const n = document.getElementById('buyName').value;
-  const p = document.getElementById('buyPhone').value;
-  if(!n || !p) return showToast("Məlumatları doldurun!");
+async function handleSaveBook() {
+    const t = document.getElementById('bookT').value;
+    const p = document.getElementById('bookP').value;
+    const f = document.getElementById('bookF').files[0];
 
-  const w = writers.find(x => x.id === currentB.writerId);
-  
-  // Satış sayını Firebase-də artır
-  await db.collection("books").doc(currentB.id).update({
-    sales: firebase.firestore.FieldValue.increment(1)
-  });
+    if(!t || !p) return showToast("Məlumatları doldurun!");
 
-  await db.collection("orders").add({ 
-    bookTitle: currentB.title, 
-    buyer: n, 
-    writerId: currentB.writerId,
-    createdAt: Date.now() 
-  });
+    let base64 = "";
+    if(f) {
+        const reader = new FileReader();
+        base64 = await new Promise(r => { reader.onload = () => r(reader.result); reader.readAsDataURL(f); });
+    }
 
-  window.open(`https://wa.me/${w ? w.wa : '994705093416'}?text=Salam, ${currentB.title} kitabını almaq istəyirəm.`);
-  closeModal('buyModal');
-  showToast("Sifariş yazıçıya göndərildi!");
+    await db.collection("books").add({
+        title: t, price: p, image: base64,
+        writerId: session.id, writerName: session.name,
+        createdAt: Date.now(), sales: 0
+    });
+
+    closeModal('bookModal');
+    showToast("Kitab uğurla paylaşıldı!");
 }
 
-// Digər köməkçi funksiyalar (createWriter, delDoc, updateStats və s.) əvvəlki kodla eynidir...
-async function createWriter() {
-  const n = document.getElementById('nwName').value;
-  const c = document.getElementById('nwCode').value.toUpperCase();
-  const w = document.getElementById('nwWa').value;
-  if(n && c && w) {
+// SİFARİŞ PROSESİ
+function handleBuyClick(id) {
+    currentBook = allBooks.find(x => x.id === id);
+    document.getElementById('buyT').innerText = currentBook.title + " - Sifariş";
+    openModal('buyModal');
+}
+
+async function handleFinalBuy() {
+    const n = document.getElementById('buyN').value;
+    const p = document.getElementById('buyP').value;
+    if(!n || !p) return showToast("Boşluq buraxmayın!");
+
+    const writer = allWriters.find(x => x.id === currentBook.writerId);
+    
+    // Satış sayını artır
+    await db.collection("books").doc(currentBook.id).update({ sales: firebase.firestore.FieldValue.increment(1) });
+
+    await db.collection("orders").add({ 
+        bookTitle: currentBook.title, 
+        buyer: n, 
+        writerId: currentBook.writerId, 
+        createdAt: Date.now() 
+    });
+
+    const msg = encodeURIComponent(`Salam, yazarlar.az saytından "${currentBook.title}" kitabını almaq istəyirəm.\n\nAdım: ${n}\nTelefon: ${p}`);
+    window.open(`https://wa.me/${writer ? writer.wa : '994705093416'}?text=${msg}`);
+    
+    closeModal('buyModal');
+    showToast("Sifariş yazıçıya göndərildi!");
+}
+
+// ADMIN FUNKSIYALARI
+async function adminCreateWriter() {
+    const n = document.getElementById('admWName').value;
+    const c = document.getElementById('admWCode').value.toUpperCase();
+    const w = document.getElementById('admWWa').value;
+
+    if(!n || !c || !w) return showToast("Bütün xanaları doldurun!");
+
     await db.collection("writers").add({ name: n, code: c, wa: w, createdAt: Date.now() });
-    showToast("Uğurlu!");
-  }
+    showToast("Yazıçı uğurla yaradıldı!");
+    document.getElementById('admWName').value=""; document.getElementById('admWCode').value="";
 }
-function buyBook(id) { currentB = books.find(b => b.id === id); document.getElementById('buyLabel').innerText = currentB.title; openModal('buyModal'); }
-async function delDoc(c, id) { if(confirm("Silinsin?")) await db.collection(c).doc(id).delete(); }
-function updateStats() { 
-  document.getElementById('stat-b').innerText = books.length; 
-  document.getElementById('stat-w').innerText = writers.length; 
-  document.getElementById('stat-s').innerText = orders.length; 
+
+async function handleDelete(col, id) {
+    if(confirm("Həqiqətən silmək istəyirsiniz?")) {
+        await db.collection(col).doc(id).delete();
+        showToast("Məlumat silindi.");
+    }
 }
-function handleAddBookClick() { if(!session) openModal('loginModal'); else openModal('bookModal'); }
-async function saveBook() {
-  const t = document.getElementById('bTitle').value;
-  const p = document.getElementById('bPrice').value;
-  const f = document.getElementById('bFile').files[0];
-  if(!t || !p) return showToast("Məlumatlar tam deyil!");
-  let img = "";
-  if(f) {
-    const reader = new FileReader();
-    img = await new Promise(res => { reader.onload = () => res(reader.result); reader.readAsDataURL(f); });
-  }
-  await db.collection("books").add({
-    title: t, price: p, image: img,
-    writerId: session.id, writerName: session.name,
-    createdAt: Date.now(), sales: 0
-  });
-  closeModal('bookModal');
+
+function updateStats() {
+    document.getElementById('s-books').innerText = allBooks.length;
+    document.getElementById('s-writers').innerText = allWriters.length;
+    document.getElementById('s-sales').innerText = allOrders.length;
 }
+
+// TƏHLÜKƏSİZLİK QISAYOLLARI
+document.onkeydown = (e) => {
+    if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85) || (e.ctrlKey && e.keyCode == 83)) {
+        return false;
+    }
+};
+
 init();
 </script>
 </body>
 </html>
-
